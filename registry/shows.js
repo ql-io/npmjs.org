@@ -63,7 +63,7 @@ shows.package = function (doc, req) {
 
         var h = "http://" + req.headers.Host
 
-        doc.versions[v].dist.tarball = h + basePath + t
+        doc.versions[v].dist.tarball = h + "/registry/_design/app/_rewrite" + basePath + t
       }
     }
   }
