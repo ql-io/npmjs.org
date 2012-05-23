@@ -45,7 +45,23 @@ shows.package = function (doc, req) {
       doc.versions[clean] = p
     }
     if (doc.versions[v].dist.tarball) {
-      var t = doc.versions[v].dist.tarball
+  	  
+	  var t = doc.versions[v].dist.tarball
+	  
+	  /****************************************************************
+	   **
+	   ** Following lines are added to avoid shasum difference error and
+	   ** to have right tarball url for packages published with other urls.
+	   ** 
+	   ** If installing npm registry behind a proxy, please make sure you
+	   ** are these lines and modify the machine ips and port accordingly.
+	   **
+	   *****************************************************************/
+	  doc.versions[v].dist.tarball = doc.versions[v].dist.tarball.replace('ql-1:8000', '10.254.34.168:8080');
+      doc.versions[v].dist.tarball = doc.versions[v].dist.tarball.replace('10.254.34.168:9000', '10.254.34.168:8080');
+      doc.versions[v].dist.tarball = doc.versions[v].dist.tarball.replace('10.254.34.168:8000', '10.254.34.168:8080');
+
+
       t = t.replace(/^https?:\/\/[^\/:]+(:[0-9]+)?/, '')
       if (!t.match(/^\/[^\/]+\/_design\/app\/_rewrite/)) {
         doc.versions[v].dist.tarball = t
